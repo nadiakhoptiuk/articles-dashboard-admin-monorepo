@@ -2,28 +2,19 @@ import Parser from "rss-parser";
 
 import { Article } from "../db/schemas/article.schema";
 
-import { FeedFullType, ItemType } from "../types/common.types";
+import { FeedFullType, ArticleItemType } from "../types/common.types";
 
 type FeedType = { title: string; description: string };
 
-const parser: Parser<FeedType, ItemType> = new Parser({
+const parser: Parser<FeedType, ArticleItemType> = new Parser({
   customFields: {
     feed: ["title", "description"],
-    item: [
-      "title",
-      "link",
-      "pubDate",
-      "author",
-      "categories",
-      "isoDate",
-      "guid",
-    ],
+    item: ["title", "link", "pubDate", "author", "categories", "isoDate"],
   },
 });
 
 export const rssParser = async () => {
   const lastArticle = await Article.findOne().sort({ isoDate: "desc" });
-
   const lastArticleDate = lastArticle?.isoDate;
 
   const feed: FeedFullType = await parser.parseURL(
@@ -31,9 +22,11 @@ export const rssParser = async () => {
   );
 
   if (lastArticleDate) {
-    const newFeeds: ItemType[] = [...feed.items].filter(({ isoDate }) => {
-      new Date(isoDate).getTime() > lastArticleDate.getTime();
-    });
+    const newFeeds: ArticleItemType[] = [...feed.items].filter(
+      ({ isoDate }) => {
+        new Date(isoDate).getTime() > lastArticleDate.getTime();
+      }
+    );
 
     newFeeds.forEach((item) => {
       Article.create(item);

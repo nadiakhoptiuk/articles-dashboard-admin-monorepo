@@ -1,0 +1,11 @@
+import React from 'react';
+import classNames from 'classnames';
+
+import { WithChildren, WithClassName } from '(shared)/types/common.types';
+
+export const Container: React.FC<WithChildren & WithClassName> = ({
+  children,
+  className = '',
+}) => {
+  return <div className={classNames('container', className)}>{children}</div>;
+};

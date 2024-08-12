@@ -3,14 +3,15 @@ import express from "express";
 import {
   createArticle,
   getAllArticles,
-  updateArticle,deleteArticle
+  updateArticle,
+  deleteArticle,
 } from "../controllers/articles.controllers";
 import { asyncErrorsHandler } from "../middlewares/asyncErrorsHandler";
 import { validation } from "../middlewares/validation";
 import {
   articleCreateSchemaValidation,
   articleUpdateSchemaValidation,
-} from "../services/validation.schema";
+} from "../services/articles/validation.schema";
 
 export const articlesRouter = express.Router();
 

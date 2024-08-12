@@ -4,7 +4,7 @@ import {
   createArticleUtility,
   updateArticleUtility,
   deleteArticleUtility,
-} from "../services/articles.services";
+} from "../services/articles/articles.services";
 
 export const getAllArticles = async (
   req: Request,

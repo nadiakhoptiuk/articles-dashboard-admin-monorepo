@@ -16,3 +16,18 @@ export type FeedFullType = {
 export interface AppError extends Error {
   status?: number;
 }
+
+export type UserCredentialsType = {
+  email: string;
+  password: string;
+};
+
+export type TokenType = {
+  token: string;
+};
+
+export type WithId = {
+  id: string;
+};
+
+export type UserType = UserCredentialsType & TokenType & WithId;

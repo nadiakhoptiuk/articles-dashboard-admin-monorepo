@@ -1,8 +1,8 @@
 import { Conflict, NotFound } from "http-errors";
 
-import { Article } from "../db/schemas/article.schema";
+import { Article } from "../../db/schemas/article.schema";
 
-import { ArticleItemType } from "../types/common.types";
+import { ArticleItemType } from "../../types/common.types";
 
 export const getAllArticlesUtility = async () => {
   const allArticles = await Article.find();

@@ -4,7 +4,7 @@ import { Article } from "../db/schemas/article.schema";
 
 import { ArticleItemType } from "../types/common.types";
 
-export const getAllArticlesData = async () => {
+export const getAllArticlesUtility = async () => {
   const allArticles = await Article.find();
 
   if (!allArticles) {
@@ -14,7 +14,7 @@ export const getAllArticlesData = async () => {
   return allArticles;
 };
 
-export const createArticleService = async (article: ArticleItemType) => {
+export const createArticleUtility = async (article: ArticleItemType) => {
   const isExistedArticle = await Article.findOne({ link: article.link });
 
   if (isExistedArticle) {
@@ -22,4 +22,34 @@ export const createArticleService = async (article: ArticleItemType) => {
   }
 
   return await Article.create(article);
+};
+
+export const updateArticleUtility = async (
+  articleId: string,
+  articleData: ArticleItemType
+) => {
+  const updatedArticle = await Article.findByIdAndUpdate(
+    articleId,
+    articleData,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!updatedArticle) {
+    throw new NotFound(`The article with id "${articleId}" does not exist`);
+  }
+
+  return updatedArticle;
+};
+
+export const deleteArticleUtility = async (articleId: string) => {
+  const deletedArticle = await Article.findByIdAndDelete(articleId);
+
+  if (!deletedArticle) {
+    throw new NotFound(`The article with id "${articleId}" does not exist`);
+  }
+
+  return deletedArticle;
 };

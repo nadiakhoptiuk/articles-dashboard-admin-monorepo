@@ -3,19 +3,29 @@ import express from "express";
 import {
   createArticle,
   getAllArticles,
+  updateArticle,deleteArticle
 } from "../controllers/articles.controllers";
 import { asyncErrorsHandler } from "../middlewares/asyncErrorsHandler";
 import { validation } from "../middlewares/validation";
-import { createArticleSchema } from "../services/validation.schema";
+import {
+  articleCreateSchemaValidation,
+  articleUpdateSchemaValidation,
+} from "../services/validation.schema";
 
-export const router = express.Router();
+export const articlesRouter = express.Router();
 
-router.get("/", asyncErrorsHandler(getAllArticles));
+articlesRouter.get("/", asyncErrorsHandler(getAllArticles));
 
-router.post(
+articlesRouter.post(
   "/",
-  validation(createArticleSchema),
+  validation(articleCreateSchemaValidation),
   asyncErrorsHandler(createArticle)
 );
 
-// router.get("/:day", asyncErrorsHandler(getAllDataForDay));
+articlesRouter.patch(
+  "/:articleId",
+  validation(articleUpdateSchemaValidation),
+  asyncErrorsHandler(updateArticle)
+);
+
+articlesRouter.delete("/:articleId", asyncErrorsHandler(deleteArticle));

@@ -1,23 +1,13 @@
-import express from "express";
-import logger from "morgan";
-import cors from "cors";
 require("dotenv").config();
 
 import { connectToDB } from "./db/dbConnection";
 import { rssParser } from "./lib/parser-rss";
 import { rssScheduleTask } from "./lib/scheduler";
+import { app } from "./app";
 
-// const errorHandler = require("./middlewares/errorsHandler");
-
-const app = express();
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(cors());
-
-app.get("/", async (_, res) => {
-  res.status(201).send({ message: "I am alive" });
-});
+// app.get("/", async (_, res) => {
+//   res.status(201).send({ message: "I am alive" });
+// });
 
 const PORT = process.env.PORT || 3001;
 

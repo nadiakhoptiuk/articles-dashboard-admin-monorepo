@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { Schema } from 'joi';
+import { ObjectSchema } from "joi";
 
-export const validation = (schema) => {
+export const validation = (schema: ObjectSchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const result = schema.validate(req.body);
 
     if (result.error) {
-      const errorField = result.error.details[0].context.label;
+      const errorField = result.error.details[0]?.context?.label || "unknown";
 
       console.log(result.error.details[0].context);
 

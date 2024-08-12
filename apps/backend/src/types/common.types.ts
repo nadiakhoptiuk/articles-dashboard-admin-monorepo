@@ -12,3 +12,7 @@ export type FeedFullType = {
   description: string;
   items: ArticleItemType[];
 };
+
+export interface AppError extends Error {
+  status?: number;
+}

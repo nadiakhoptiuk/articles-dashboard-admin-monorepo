@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const createArticleSchema = Joi.object({
+export const articleCreateSchemaValidation = Joi.object({
   title: Joi.string().trim().required().messages({
     "any.required": "Title is required",
   }),
@@ -25,3 +25,21 @@ export const createArticleSchema = Joi.object({
     "any.required": "IsoDate are required",
   }),
 });
+
+export const articleUpdateSchemaValidation = Joi.object({
+  title: Joi.string().trim(),
+
+  link: Joi.string().trim(),
+
+  pubDate: Joi.date(),
+
+  author: Joi.string().trim(),
+
+  categories: Joi.array().items(Joi.string()),
+
+  isoDate: Joi.date(),
+})
+  .min(1)
+  .messages({
+    "any.required": "At least one field for update is required",
+  });

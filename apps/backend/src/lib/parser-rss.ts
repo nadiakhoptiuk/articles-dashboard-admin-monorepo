@@ -18,7 +18,7 @@ export const rssParser = async () => {
   const lastArticleDate = lastArticle?.isoDate;
 
   const feed: FeedFullType = await parser.parseURL(
-    "https://www.radiosvoboda.org/api/zmqipebui_"
+    "https://www.radiosvoboda.org/api/zipkqejjki"
   );
 
   if (lastArticleDate) {

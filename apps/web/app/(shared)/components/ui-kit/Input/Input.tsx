@@ -29,7 +29,11 @@ export const Input = ({
   const [inputType, setInputType] = useState(type);
 
   const togglePassword = () => {
-    inputType === 'text' ? setInputType('password') : setInputType('text');
+    if (inputType === 'text') {
+      setInputType('password');
+    } else {
+      setInputType('text');
+    }
   };
 
   return (

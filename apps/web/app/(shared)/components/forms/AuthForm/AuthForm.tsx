@@ -50,7 +50,7 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
       router.push(ROUTES.ADMIN);
     } else {
       notify.error('Не вдалося увійти');
-      console.log(res?.error, res?.status);
+      // console.log(res?.error, res?.status);
     }
   };
 
@@ -62,7 +62,7 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
       router.push(ROUTES.LOGIN);
     } else {
       notify.error('Не вдалося зареєструвати користувача');
-      console.log(res?.error, res?.status);
+      // console.log(res?.error, res?.status);
     }
   };
 

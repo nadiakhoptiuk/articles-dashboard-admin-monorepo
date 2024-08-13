@@ -10,6 +10,15 @@ const nextConfig = {
     });
     return config;
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gdb.rferl.org',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

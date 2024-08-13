@@ -16,9 +16,4 @@ app.use(cors());
 app.use("/articles", articlesRouter);
 app.use("/users", usersRouter);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({ message: err.message });
-});
-
 app.use(errorHandler);

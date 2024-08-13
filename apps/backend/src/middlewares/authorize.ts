@@ -1,14 +1,16 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { Unauthorized } from "http-errors";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 import { User } from "../db/schemas/user.schema";
+import { IUser, AuthorizedRequest } from "../types/common.types";
 
 dotenv.config();
 const secret = process.env.JWT_SECRET;
 
 export const authorize = async (
-  req: Request,
+  req: AuthorizedRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -20,16 +22,16 @@ export const authorize = async (
   try {
     const payload = jwt.verify(token, secret);
 
-    const existingUser = await User.findOne({
+    const existingUser: IUser | null = await User.findOne({
       _id: payload.sub,
       token: token,
     });
 
     if (!existingUser) {
-      throw new Unauthorized();
+      throw new Unauthorized("Unauthorized");
     }
 
-    req.body = existingUser;
+    req.user = existingUser;
   } catch (error) {
     return next(new Unauthorized("Unauthorized"));
   }

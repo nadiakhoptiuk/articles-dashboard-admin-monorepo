@@ -5,6 +5,7 @@ import {
   loginUser,
   logOutUser,
 } from "../services/users/users.services";
+import { AuthorizedRequest } from "../types/common.types";
 
 export const register = async (
   req: Request,
@@ -28,16 +29,20 @@ export const logIn = async (
 
   return res.status(201).json({
     status: "success",
-    userData: { id: newUser?._id, email: newUser?.email },
+    userData: {
+      id: newUser?._id,
+      email: newUser?.email,
+      token: newUser?.token,
+    },
   });
 };
 
 export const logOut = async (
-  req: Request,
+  req: AuthorizedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  await logOutUser(req.body._id);
+  if (req.user?._id) await logOutUser(req.user._id);
 
   return res
     .status(204)

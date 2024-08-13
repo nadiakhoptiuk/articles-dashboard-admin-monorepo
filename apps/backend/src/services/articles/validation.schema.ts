@@ -24,6 +24,14 @@ export const articleCreateSchemaValidation = Joi.object({
   isoDate: Joi.date().required().messages({
     "any.required": "IsoDate are required",
   }),
+
+  content: Joi.string().trim().required().messages({
+    "any.required": "Content is required",
+  }),
+
+  url: Joi.string().trim().required().messages({
+    "any.required": "Url is required",
+  }),
 });
 
 export const articleUpdateSchemaValidation = Joi.object({
@@ -38,6 +46,10 @@ export const articleUpdateSchemaValidation = Joi.object({
   categories: Joi.array().items(Joi.string()),
 
   isoDate: Joi.date(),
+
+  content: Joi.string().trim(),
+
+  url: Joi.string().trim(),
 })
   .min(1)
   .messages({

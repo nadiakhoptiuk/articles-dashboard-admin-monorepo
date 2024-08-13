@@ -13,7 +13,6 @@ export interface PluginUtils {
 }
 
 export interface ArticleDBItemType {
-  _id: string;
   title: string;
   link: string;
   pubDate: Date;
@@ -22,4 +21,12 @@ export interface ArticleDBItemType {
   isoDate: Date;
   createdAt: Date;
   updatedAt: Date;
+  url: string;
+  content: string;
 }
+
+export type WithDBId = {
+  _id: string;
+};
+
+export type ArticleDBItemTypeWithId = ArticleDBItemType & WithDBId;

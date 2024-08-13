@@ -5,7 +5,7 @@ export default async function Page() {
     <section className="section">
       <Container className="relative">
         <h1 className="text-center mb-10">Міжнародні новини</h1>
-        <p className="text-center">Радіо Свобода</p>
+        <p className="text-center mb-20">Радіо Свобода</p>
       </Container>
     </section>
   );

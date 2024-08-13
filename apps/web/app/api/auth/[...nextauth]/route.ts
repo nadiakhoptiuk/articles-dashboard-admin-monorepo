@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
 
 import { authConfig } from '@/configs/auth';

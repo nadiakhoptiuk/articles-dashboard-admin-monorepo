@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Link from 'next/link';
+import classNames from 'classnames';
 
 import { ROUTES } from '(shared)/types/enums';
-import classNames from 'classnames';
 import { WithClassName } from '(shared)/types/common.types';
 import { NAV_ICONS } from '(shared)/types/icons.types';
 

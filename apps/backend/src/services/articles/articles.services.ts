@@ -5,7 +5,7 @@ import { Article } from "../../db/schemas/article.schema";
 import { ArticleItemType } from "../../types/common.types";
 
 export const getAllArticlesUtility = async () => {
-  const allArticles = await Article.find();
+  const allArticles = await Article.find().sort({ pubDate: "desc" });
 
   if (!allArticles) {
     throw new NotFound("There are no one day in the database");

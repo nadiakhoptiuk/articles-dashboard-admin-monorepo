@@ -2,14 +2,27 @@ import Parser from "rss-parser";
 
 import { Article } from "../db/schemas/article.schema";
 
-import { FeedFullType, ArticleItemType } from "../types/common.types";
+import {
+  FeedFullType,
+  ArticleItemType,
+  ArticleItemFullType,
+} from "../types/common.types";
 
 type FeedType = { title: string; description: string };
 
-const parser: Parser<FeedType, ArticleItemType> = new Parser({
+const parser: Parser<FeedType, ArticleItemFullType> = new Parser({
   customFields: {
     feed: ["title", "description"],
-    item: ["title", "link", "pubDate", "author", "categories", "isoDate"],
+    item: [
+      "title",
+      "link",
+      "pubDate",
+      "author",
+      "categories",
+      "isoDate",
+      "enclosure",
+      "content",
+    ],
   },
 });
 
@@ -22,17 +35,21 @@ export const rssParser = async () => {
   );
 
   if (lastArticleDate) {
-    const newFeeds: ArticleItemType[] = feed.items.filter((feed) => {
+    const newFeeds: ArticleItemFullType[] = feed.items.filter((feed) => {
       if (new Date(feed.isoDate).getTime() > lastArticleDate.getTime())
         return feed;
     });
 
     newFeeds.forEach((item) => {
-      Article.create(item);
+      const { enclosure, ...props } = item;
+
+      Article.create({ url: item.enclosure.url, ...props });
     });
   } else {
     feed.items.forEach((item) => {
-      Article.create(item);
+      const { enclosure, ...props } = item;
+
+      Article.create({ url: item.enclosure.url, ...props });
     });
   }
 };

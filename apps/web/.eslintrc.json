@@ -20,7 +20,6 @@
       }
     ],
     "react-hooks/rules-of-hooks": "error",
-    "unicorn/no-console-spaces": "error",
     "no-duplicate-imports": "error",
     "no-await-in-loop": "error",
     "no-console": [

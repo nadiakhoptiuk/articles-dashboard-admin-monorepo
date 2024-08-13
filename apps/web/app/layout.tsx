@@ -7,6 +7,8 @@ import { WithChildren } from '(shared)/types/common.types';
 
 import { comfortaa, nunito } from './fonts';
 import './globals.css';
+import { Toaster } from 'react-hot-toast';
+import { Providers } from '(shared)/components/providers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,11 +19,16 @@ export default function RootLayout({ children }: WithChildren) {
   return (
     <html lang="en">
       <body
-        className={`${nunito.variable} ${comfortaa.variable} flex flex-col justify-start h-screen`}
+        className={`${nunito.variable} ${comfortaa.variable} flex h-full min-h-screen flex-col`}
       >
-        <Header />
+        <Providers>
+          <Header />
 
-        <main>{children}</main>
+          <main className="flex-grow" role="main">
+            {children}
+          </main>
+          <Toaster position="top-center" reverseOrder={false} />
+        </Providers>
       </body>
     </html>
   );

@@ -7,5 +7,7 @@ export const Container: React.FC<WithChildren & WithClassName> = ({
   children,
   className = '',
 }) => {
-  return <div className={classNames('container', className)}>{children}</div>;
+  return (
+    <div className={classNames('container mx-auto', className)}>{children}</div>
+  );
 };

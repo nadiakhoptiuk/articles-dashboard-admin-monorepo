@@ -23,11 +23,16 @@ export type UserCredentialsType = {
 };
 
 export type TokenType = {
-  token: string;
+  token: string | null;
 };
 
 export type WithId = {
   id: string;
 };
 
+export type WithIdFromDB = {
+  _id: string;
+};
+
 export type UserType = UserCredentialsType & TokenType & WithId;
+export type UserAtDBType = UserCredentialsType & TokenType & WithIdFromDB;

@@ -3,5 +3,66 @@
 @tailwind utilities;
 
 body {
-  @apply font-nunito;
+  @apply font-nunito bg-light pt-[118px];
+}
+
+@layer base {
+  h1 {
+    @apply text-ui_bold_32 md:text-ui_bold_44 mb-5 md:mb-10 xl:mb-20 font-comfortaa;
+  }
+  h2 {
+    @apply text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_32 mb-4 md:mb-8 xl:mb-14 font-comfortaa;
+  }
+  p {
+    @apply text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_32 font-nunito;
+  }
+  span {
+    @apply text-ui_light_16 md:text-ui_light_20 xl:text-ui_light_28;
+  }
+  input:-internal-autofill-selected {
+    @apply !bg-white;
+  }
+  input {
+    @apply !bg-white;
+  }
+  input:-webkit-autofill {
+    background-color: #fff !important;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-20;
+  }
+
+  .base-transition {
+    @apply transition !duration-300 ease-in-out;
+  }
+
+  .base-button {
+    @apply bg-blue rounded text-white hocus:bg-navy-blue py-4 px-5 min-w-[140px] max-w-fit flex items-center justify-center base-transition cursor-pointer disabled:cursor-default disabled:hocus:bg-blue border-[1px] !border-blue hocus:border-navy-blue;
+  }
+
+  .btn-outline {
+    @apply base-button !bg-transparent hocus:!bg-white border-[1px] !border-blue text-blue;
+  }
+
+  .base-input {
+    @apply relative mb-5 flex flex-col max-w-[400px] items-center justify-center gap-x-8 transition-all font-nunito text-ui_light_16;
+  }
+
+  .submit-button:disabled {
+    @apply btn-outline pointer-events-none;
+  }
+
+  .nav-button {
+    @apply inline-flex items-center justify-center gap-x-5 transition-colors hocus:text-navy-blue relative z-10 base-transition duration-300;
+  }
+  .nav-button-active {
+    @apply nav-button text-blue pointer-events-none;
+  }
+}
+
+.header {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 }

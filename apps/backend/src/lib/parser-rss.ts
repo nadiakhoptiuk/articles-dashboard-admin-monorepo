@@ -22,11 +22,10 @@ export const rssParser = async () => {
   );
 
   if (lastArticleDate) {
-    const newFeeds: ArticleItemType[] = [...feed.items].filter(
-      ({ isoDate }) => {
-        new Date(isoDate).getTime() > lastArticleDate.getTime();
-      }
-    );
+    const newFeeds: ArticleItemType[] = feed.items.filter((feed) => {
+      if (new Date(feed.isoDate).getTime() > lastArticleDate.getTime())
+        return feed;
+    });
 
     newFeeds.forEach((item) => {
       Article.create(item);

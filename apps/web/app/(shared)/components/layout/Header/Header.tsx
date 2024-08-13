@@ -1,15 +1,16 @@
 import { FC } from 'react';
 
-import { Logo } from '(shared)/components/ui-kit/Logo';
 import { Container } from '(shared)/components/ui-kit/Container';
+import { NavBar } from '(shared)/components/navigation/NavBar';
 
 export const Header: FC = () => {
   return (
-    <header className="relative py-10" role="banner">
+    <header
+      className="header fixed z-1 w-full left-0 top-0 py-10 bg-white"
+      role="banner"
+    >
       <Container className="flex items-center justify-between">
-        <Logo />
-        <p className="font-comfortaa">header</p>
-        {/* <Navbar /> */}
+        <NavBar />
       </Container>
     </header>
   );

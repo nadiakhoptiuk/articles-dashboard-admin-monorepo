@@ -1,10 +1,10 @@
 import { Request } from "express";
+import { ObjectId } from "mongodb";
 
 export type ArticleItemFullType = {
   title: string;
   link: string;
   pubDate: string;
-  author: string;
   categories: string[];
   isoDate: string;
   enclosure: {
@@ -19,11 +19,24 @@ export type ArticleItemType = {
   title: string;
   link: string;
   pubDate: string;
-  author: string;
   categories: string[];
   isoDate: string;
   imageUrl: string;
   content: string;
+};
+
+export type ArticleItemDBFullType = {
+  _id: ObjectId;
+  title: string;
+  link: string;
+  pubDate: Date;
+  categories: string[];
+  isoDate: Date;
+  imageUrl: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: any;
 };
 
 export type FeedFullType = {
@@ -50,7 +63,7 @@ export type WithId = {
 };
 
 export type WithIdFromDB = {
-  _id: string;
+  _id: ObjectId;
 };
 
 export type UserType = UserCredentialsType & TokenType & WithId;

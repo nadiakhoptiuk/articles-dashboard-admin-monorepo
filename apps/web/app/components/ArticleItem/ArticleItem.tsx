@@ -6,26 +6,24 @@ import classNames from 'classnames';
 import TemplateSrc from '@/public/images/template.png';
 
 import {
-  ArticleDBItemTypeWithId,
+  ArticleDBItemTypeWithDBId,
   WithClassName,
 } from '(shared)/types/common.types';
 import { CategoriesList } from '../CategoriesList';
 import { WithMode } from '../ArticlesList/Article.types';
 import { ControlPanel } from '@/app/admin/components/ControlPanel';
 
-export const ArticleItem: FC<
-  ArticleDBItemTypeWithId & WithClassName & WithMode
-> = ({
-  id,
-  title,
-  link,
-  pubDate,
-  content,
-  imageUrl,
-  categories,
+type Props = {
+  article: ArticleDBItemTypeWithDBId;
+};
+
+export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
+  article,
   className = '',
   mode = 'home',
 }) => {
+  const { title, content, imageUrl, pubDate, categories, link } = article;
+
   return (
     <li
       className={classNames(
@@ -110,7 +108,7 @@ export const ArticleItem: FC<
         </a>
       </div>
 
-      {mode === 'admin' && <ControlPanel id={id} />}
+      {mode === 'admin' && <ControlPanel article={article} />}
     </li>
   );
 };

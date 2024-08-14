@@ -6,7 +6,6 @@ const ArticleSchema = new mongoose.Schema(
     title: String,
     link: String,
     pubDate: Date,
-    author: String,
     categories: [String],
     isoDate: Date,
     imageUrl: String,

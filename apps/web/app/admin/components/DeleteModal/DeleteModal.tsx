@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Modal } from '(shared)/components/ui-kit/Modal';
 
-import { deleteArticle } from '@/api/serverActions.ts/deleteArticle';
+import { deleteArticle } from '@/api/serverActions/deleteArticle';
 import { notify } from '(shared)/utils/notification';
 
 import { ICONS } from '(shared)/types/icons.types';

@@ -1,4 +1,4 @@
-import { ISODateString, Session, User } from 'next-auth';
+import { Session, User } from 'next-auth';
 import { ReactNode } from 'react';
 
 export type WithChildren = {
@@ -23,8 +23,6 @@ export interface ArticleDBItemType {
   pubDate: Date;
   categories: string[];
   isoDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
   imageUrl: string;
   content: string;
 }
@@ -58,11 +56,16 @@ export interface CustomUser extends User {
   };
 }
 
-export interface CreateArticleFormType {
+export interface ArticleFormType {
   title: string;
   content: string;
-  // imageUrl: string;
-  // pubDate: Date;
-  // link: string;
-  // categories: string[];
+  imageUrl: string;
+  link: string;
+  pubDate: Date;
+  categories: string[];
+}
+
+export interface OptionType {
+  value: string;
+  label: string;
 }

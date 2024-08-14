@@ -6,12 +6,13 @@ import { EditModal } from '../EditModal';
 import { DeleteModal } from '../DeleteModal';
 
 import { ICONS } from '(shared)/types/icons.types';
+import { ArticleDBItemTypeWithDBId } from '(shared)/types/common.types';
 
 type Props = {
-  id: string;
+  article: ArticleDBItemTypeWithDBId;
 };
 
-export const ControlPanel: FC<Props> = ({ id }) => {
+export const ControlPanel: FC<Props> = ({ article }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export const ControlPanel: FC<Props> = ({ id }) => {
         <li>
           <button
             type="button"
-            className="w-24 h-24 base-shadow flex items-center justify-center hocus:bg-white rounded base-transition"
+            className="w-24 h-24 base-shadow flex items-center justify-center bg-white rounded base-transition hocus: text-navy-blue"
             aria-label="Редагувати статтю"
             onClick={() => setIsEditModalOpen(true)}
           >
@@ -32,7 +33,7 @@ export const ControlPanel: FC<Props> = ({ id }) => {
         <li>
           <button
             type="button"
-            className="w-24 h-24 base-shadow flex items-center justify-center hocus:bg-white rounded base-transition"
+            className="w-24 h-24 base-shadow flex items-center justify-center bg-white rounded base-transition hocus: text-navy-blue"
             aria-label="Видалити статтю"
             onClick={() => setIsDeleteModalOpen(true)}
           >
@@ -41,11 +42,15 @@ export const ControlPanel: FC<Props> = ({ id }) => {
         </li>
       </ul>
 
-      <EditModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} />
+      <EditModal
+        isOpen={isEditModalOpen}
+        setIsOpen={setIsEditModalOpen}
+        article={article}
+      />
       <DeleteModal
         isOpen={isDeleteModalOpen}
         setIsOpen={setIsDeleteModalOpen}
-        id={id}
+        id={article._id}
       />
     </>
   );

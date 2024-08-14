@@ -28,8 +28,8 @@ export const ArticlesList: FC<WithMode & WithClassName> = async ({
         className,
       )}
     >
-      {articles.map(({ _id, ...props }) => (
-        <ArticleItem key={_id} {...props} mode={mode} id={_id} />
+      {articles.map(article => (
+        <ArticleItem key={article._id} article={article} mode={mode} />
       ))}
     </ul>
   );

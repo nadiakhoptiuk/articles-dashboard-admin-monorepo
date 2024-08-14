@@ -66,3 +66,15 @@ body {
 .base-shadow {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 }
+
+.datePicker .rdp-day_button {
+  @apply max-md:!h-9 max-md:!w-9;
+}
+
+.dayPicker .rdp-weekday {
+  @apply max-md:!h-9 max-md:!w-9;
+}
+
+.dayPicker .rdp-chevron {
+  fill: #006494 !important;
+}

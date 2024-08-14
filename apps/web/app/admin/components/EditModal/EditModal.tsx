@@ -1,13 +1,30 @@
 import { FC } from 'react';
 
 import { Modal } from '(shared)/components/ui-kit/Modal';
+import { ArticleUpdateForm } from '(shared)/components/forms/ArticleUpdateForm';
 
-import { ModalCommonProps } from '(shared)/types/common.types';
+import {
+  ArticleDBItemTypeWithDBId,
+  ModalCommonProps,
+} from '(shared)/types/common.types';
 
-export const EditModal: FC<ModalCommonProps> = ({ isOpen, setIsOpen }) => {
+type Props = {
+  article: ArticleDBItemTypeWithDBId;
+};
+
+export const EditModal: FC<ModalCommonProps & Props> = ({
+  isOpen,
+  setIsOpen,
+  article,
+}) => {
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <div></div>
+      <p className="mb-10 text-center text-ui_bold_32">Редагування статті</p>
+
+      <ArticleUpdateForm
+        existedArticleData={article}
+        setIsModalOpen={setIsOpen}
+      />
     </Modal>
   );
 };

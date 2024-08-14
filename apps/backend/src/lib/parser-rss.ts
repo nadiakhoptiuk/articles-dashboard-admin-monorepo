@@ -3,7 +3,6 @@ import Parser from "rss-parser";
 import { Article } from "../db/schemas/article.schema";
 
 import { FeedFullType, ArticleItemFullType } from "../types/common.types";
-import { AnyAaaaRecord } from "dns";
 
 type FeedType = { title: string; description: string };
 
@@ -14,7 +13,6 @@ const parser: Parser<FeedType, ArticleItemFullType> = new Parser({
       "title",
       "link",
       "pubDate",
-      "author",
       "categories",
       "isoDate",
       "enclosure",

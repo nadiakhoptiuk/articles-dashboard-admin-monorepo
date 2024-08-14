@@ -15,11 +15,11 @@ export const CreateArticleBlock: FC = () => {
       <Container className="border-b-[1px] border-blue pb-20">
         <button
           type="button"
-          className="w-fit ml-auto h-24 base-shadow flex gap-x-4 items-center justify-center hocus:bg-white rounded base-transition py-4 px-5"
+          className="w-fit ml-auto h-24 base-shadow flex gap-x-4 items-center justify-center bg-white rounded base-transition py-4 px-5"
           aria-label="Створити нову статтю"
           onClick={() => setIsCreateModalOpen(true)}
         >
-          <ICONS.EDIT size={30} />
+          <ICONS.CREATE size={30} className="text-navy-blue" />
           <span>Створити нову статтю</span>
         </button>
 

@@ -21,7 +21,7 @@ export const deleteArticle = async (id: string) => {
     },
   });
 
-  if (res.status === 200) revalidatePath(ROUTES.ADMIN, 'layout');
+  if (res.status === 200) revalidatePath(ROUTES.ADMIN, 'page');
 
   return res.status;
 };

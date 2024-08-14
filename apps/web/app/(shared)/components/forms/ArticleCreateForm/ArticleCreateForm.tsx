@@ -1,44 +1,57 @@
 'use client';
 
-import { FC, useTransition } from 'react';
+import { FC, useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
 
 import { Input } from '(shared)/components/ui-kit/Input';
 import { Button } from '(shared)/components/ui-kit/Button';
+import { DatePicker } from '(shared)/components/ui-kit/DatePicker';
+import { MultiselectCheckbox } from '(shared)/components/ui-kit/MultiselectCheckbox';
 
-import { createArticle } from '@/api/serverActions.ts/createArticle';
+import { createArticle } from '@/api/serverActions/createArticle';
 import { notify } from '(shared)/utils/notification';
 
-import { CreateArticleFormType } from '(shared)/types/common.types';
+import { ArticleFormType, OptionType } from '(shared)/types/common.types';
 import { ICONS } from '(shared)/types/icons.types';
 
 type Props = {
-  type: 'create' | 'edit';
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const ArticleControlForm: FC<Props> = ({ type, setIsModalOpen }) => {
+export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
   const {
     register,
-    // handleSubmit,
     reset,
     getValues,
     trigger,
     formState: { errors, isDirty },
-  } = useForm<CreateArticleFormType>();
+  } = useForm<ArticleFormType>({
+    defaultValues: {
+      imageUrl:
+        'https://www.radiosvoboda.org/Content/responsive/img/image-placeholder.svg',
+    },
+  });
   const [isPending, startTransition] = useTransition();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedOptions, setSelectedOptions] = useState<OptionType[] | []>([]);
 
   const handleArticleCreate = async () => {
     const formValues = getValues();
+    const articleFormData = {
+      ...formValues,
+      pubDate: selectedDate,
+      isoDate: selectedDate,
+      categories: selectedOptions.map(({ value }) => value),
+    };
 
     startTransition(async () => {
-      await createArticle(formValues)
+      await createArticle(articleFormData)
         .then(status => {
-          if (status === 200) {
+          if (status === 201) {
             notify('Статтю створено успішно!');
             reset();
-            () => setIsModalOpen(false);
+            setIsModalOpen(false);
           } else {
             notify('Не вдалось створити статтю');
           }
@@ -47,30 +60,22 @@ export const ArticleControlForm: FC<Props> = ({ type, setIsModalOpen }) => {
     });
   };
 
-  // const handleArticleUpdate = async (id: string) => {
-  //   startTransition(async () => {
-  //     await updateArticle(id)
-  //       .then(status => {
-  //         if (status === 200) {
-  //           notify('Видалено успішно!');
-  //         } else {
-  //           notify('Не вдалось видалити');
-  //         }
-  //       })
-  //       .catch(console.log)
-  //       .finally(() => setIsOpen(false));
-  //   });
-  // };
-
   return (
     <form
-      // onSubmit={handleSubmit(
-      //   type === 'create' ? handleCreateArticle : handleUpdateArticle,
-      // )}
       className="w-[400px] mx-auto mb-16"
       autoComplete="off"
       action={handleArticleCreate}
     >
+      <DatePicker
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+
+      <MultiselectCheckbox
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
+
       <Input
         label="Заголовок"
         register={register('title', {
@@ -100,7 +105,6 @@ export const ArticleControlForm: FC<Props> = ({ type, setIsModalOpen }) => {
         className="base-input"
         classNameInput=""
       />
-
       <Input
         label="Опис"
         register={register('content', {
@@ -131,6 +135,32 @@ export const ArticleControlForm: FC<Props> = ({ type, setIsModalOpen }) => {
         classNameInput=""
       />
 
+      <Input
+        label="Посилання"
+        register={register('link', {
+          required: {
+            value: true,
+            message: 'Це поле обов"язкове',
+          },
+          // pattern: {
+          //   value: ,
+          //   message: 'Не відповідає шаблону',
+          // },
+          minLength: {
+            value: 6,
+            message: 'Мінімальна кількість символів - 6',
+          },
+          onChange: () => {
+            trigger('link');
+          },
+        })}
+        error={errors.link?.message}
+        placeholder="Посилання на статтю"
+        type="text"
+        className=""
+        classNameInput="base-input"
+      />
+
       <Button
         type="submit"
         isDisabled={
@@ -150,7 +180,7 @@ export const ArticleControlForm: FC<Props> = ({ type, setIsModalOpen }) => {
             })}
           />
         ) : (
-          <p>{type === 'create' ? 'Створити' : 'Зберегти'}</p>
+          <span>Створити</span>
         )}
       </Button>
     </form>

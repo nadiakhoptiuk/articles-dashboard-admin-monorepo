@@ -1,5 +1,4 @@
 import { FC, Fragment } from 'react';
-import classNames from 'classnames';
 import {
   Dialog,
   DialogPanel,

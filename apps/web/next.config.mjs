@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'gdb.rferl.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.radiosvoboda.org',
+      },
     ],
   },
 };

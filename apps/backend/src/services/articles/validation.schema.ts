@@ -13,10 +13,6 @@ export const articleCreateSchemaValidation = Joi.object({
     "any.required": "PubDate is required",
   }),
 
-  author: Joi.string().trim().required().messages({
-    "any.required": "Author is required",
-  }),
-
   categories: Joi.array().items(Joi.string()).required().messages({
     "any.required": "Categories are required",
   }),
@@ -40,8 +36,6 @@ export const articleUpdateSchemaValidation = Joi.object({
   link: Joi.string().trim(),
 
   pubDate: Joi.date(),
-
-  author: Joi.string().trim(),
 
   categories: Joi.array().items(Joi.string()),
 

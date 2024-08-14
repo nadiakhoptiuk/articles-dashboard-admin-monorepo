@@ -1,5 +1,8 @@
-import type { AuthOptions, User } from 'next-auth';
+import type { AuthOptions, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+import { CustomUser, CustomUserSession } from '(shared)/types/common.types';
 
 export const authConfig: AuthOptions = {
   providers: [
@@ -21,7 +24,7 @@ export const authConfig: AuthOptions = {
         }).then(res => res.json());
 
         if (user && user.userData.token) {
-          return user as User;
+          return user as CustomUser;
         }
 
         return null;
@@ -33,44 +36,25 @@ export const authConfig: AuthOptions = {
     newUser: '/registration',
   },
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    // const isAllowedToSignIn = true;
-    // if (isAllowedToSignIn) {
-    // } else {
-    // Return false to display a default error message
-    // return false;
-    // Or you can return a URL to redirect to:
-    // return '/unauthorized'
-    // }
-    // console.log('profile >>>>>>', profile);
-    // console.log('email >>>>>>', email);
-    // console.log('account >>>>>>', account);
-    // console.log('credentials >>>>>>', credentials);
-    // console.log('user >>>>>>', user);
-    // return true;
-    // },
-    // },
-
-    async jwt({ user, token }) {
-      // console.log(token);
-
+    async jwt({ user, token }: { user: CustomUser; token: JWT }) {
       if (user?.userData?.token) {
         token.email = user.userData.email;
         token.sub = user.userData.id;
         token.token = user.userData.token;
       }
-      // console.log(token);
 
       return token;
     },
-    async session({ token, session }) {
-      session.user.jwt = token.token;
-      // if (user?.userData?.token) {
-      //   token.email = user.userData.email;
-      //   token.sub = user.userData.id;
-      //   token.token = user.userData.token;
-      // }
-      // console.log(token);
+    async session({
+      token,
+      session,
+    }: {
+      token: JWT;
+      session: CustomUserSession;
+    }) {
+      if (session.user) {
+        session.user.jwt = token.token;
+      }
 
       return session;
     },

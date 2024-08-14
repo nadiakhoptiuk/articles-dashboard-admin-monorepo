@@ -3,7 +3,6 @@ export const ROUTES = {
   ADMIN: '/admin',
   LOGIN: '/login',
   SIGN_UP: '/registration',
-  // SIGN_OUT: '',
 };
 
 export const AUTH_TYPES = {

@@ -29,8 +29,8 @@ export const articleCreateSchemaValidation = Joi.object({
     "any.required": "Content is required",
   }),
 
-  url: Joi.string().trim().required().messages({
-    "any.required": "Url is required",
+  imageUrl: Joi.string().trim().required().messages({
+    "any.required": "imageUrl is required",
   }),
 });
 
@@ -49,7 +49,7 @@ export const articleUpdateSchemaValidation = Joi.object({
 
   content: Joi.string().trim(),
 
-  url: Joi.string().trim(),
+  imageUrl: Joi.string().trim(),
 })
   .min(1)
   .messages({

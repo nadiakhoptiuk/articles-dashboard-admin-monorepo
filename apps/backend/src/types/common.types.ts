@@ -22,7 +22,7 @@ export type ArticleItemType = {
   author: string;
   categories: string[];
   isoDate: string;
-  url: string;
+  imageUrl: string;
   content: string;
 };
 

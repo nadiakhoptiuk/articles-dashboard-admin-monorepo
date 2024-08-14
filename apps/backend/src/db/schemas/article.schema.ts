@@ -9,7 +9,7 @@ const ArticleSchema = new mongoose.Schema(
     author: String,
     categories: [String],
     isoDate: Date,
-    url: String,
+    imageUrl: String,
     content: String,
     createdAt: Date,
     updatedAt: Date,

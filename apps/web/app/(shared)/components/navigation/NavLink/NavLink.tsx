@@ -4,12 +4,12 @@ import classNames from 'classnames';
 
 import { ROUTES } from '(shared)/types/enums';
 import { WithClassName } from '(shared)/types/common.types';
-import { NAV_ICONS } from '(shared)/types/icons.types';
+import { ICONS } from '(shared)/types/icons.types';
 
 type Props = {
   href: (typeof ROUTES)[keyof typeof ROUTES];
   label: string;
-  icon: keyof typeof NAV_ICONS;
+  icon: keyof typeof ICONS;
   currentPath: (typeof ROUTES)[keyof typeof ROUTES];
   className?: string;
 };
@@ -21,10 +21,10 @@ export const NavLink: FC<Props & WithClassName> = ({
   currentPath,
   className = '',
 }) => {
-  const Icon = NAV_ICONS[icon];
+  const Icon = ICONS[icon];
 
   return (
-    <li className="w-fit">
+    <li className="w-fit h-auto">
       <Link
         href={href}
         className={classNames(

@@ -60,6 +60,14 @@ const config: Config = {
           },
         ],
 
+        ui_light_18: [
+          '18px',
+          {
+            lineHeight: '1.33',
+            fontWeight: '300',
+          },
+        ],
+
         ui_light_20: [
           '20px',
           {
@@ -77,6 +85,15 @@ const config: Config = {
         ],
 
         // ----------------------------- REGULAR -----------------------------
+
+        ui_reg_16: [
+          '16px',
+          {
+            lineHeight: '1.14',
+            fontWeight: '400',
+          },
+        ],
+
         ui_reg_18: [
           '18px',
           {
@@ -93,6 +110,14 @@ const config: Config = {
           },
         ],
 
+        ui_reg_28: [
+          '28px',
+          {
+            lineHeight: '1.14',
+            fontWeight: '400',
+          },
+        ],
+
         ui_reg_32: [
           '32px',
           {
@@ -103,8 +128,24 @@ const config: Config = {
 
         // ----------------------------- BOLD -----------------------------
 
+        ui_bold_18: [
+          '18px',
+          {
+            lineHeight: '1.14',
+            fontWeight: '700',
+          },
+        ],
+
         ui_bold_20: [
           '20px',
+          {
+            lineHeight: '1.14',
+            fontWeight: '700',
+          },
+        ],
+
+        ui_bold_28: [
+          '28px',
           {
             lineHeight: '1.14',
             fontWeight: '700',

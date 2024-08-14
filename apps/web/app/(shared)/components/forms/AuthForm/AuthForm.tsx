@@ -32,7 +32,7 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
     getValues,
     trigger,
     formState: { errors, isDirty },
-  } = useForm<FormInputsType>({});
+  } = useForm<FormInputsType>();
 
   const handleCommonAuth = async (data: FormInputsType) => {
     return await signIn('credentials', {
@@ -50,7 +50,6 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
       router.push(ROUTES.ADMIN);
     } else {
       notify.error('Не вдалося увійти');
-      // console.log(res?.error, res?.status);
     }
   };
 
@@ -62,7 +61,6 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
       router.push(ROUTES.LOGIN);
     } else {
       notify.error('Не вдалося зареєструвати користувача');
-      // console.log(res?.error, res?.status);
     }
   };
 

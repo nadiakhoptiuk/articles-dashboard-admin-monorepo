@@ -1,10 +1,17 @@
 import { FaUser } from 'react-icons/fa6';
 import { IoExitOutline, IoLogInOutline } from 'react-icons/io5';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaRegEdit } from 'react-icons/fa';
+import { MdDeleteOutline } from 'react-icons/md';
+import { VscNewFile } from 'react-icons/vsc';
+import { CgSpinner } from 'react-icons/cg';
 
-export const NAV_ICONS = {
+export const ICONS = {
   HOME: FaHome,
   ADMIN: FaUser,
   LOGOUT: IoExitOutline,
   LOGIN: IoLogInOutline,
+  EDIT: FaRegEdit,
+  DELETE: MdDeleteOutline,
+  CREATE: VscNewFile,
+  SPINNER: CgSpinner,
 };

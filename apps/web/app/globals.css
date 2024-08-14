@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-nunito bg-light pt-[118px];
+  @apply font-nunito bg-light pt-[110px];
 }
 
 @layer base {
@@ -11,13 +11,13 @@ body {
     @apply text-ui_bold_32 md:text-ui_bold_44 mb-5 md:mb-10 xl:mb-20 font-comfortaa;
   }
   h2 {
-    @apply text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_32 mb-4 md:mb-8 xl:mb-14 font-comfortaa;
+    @apply text-ui_bold_18 md:text-ui_bold_20 xl:text-ui_bold_28 mb-4 md:mb-8 xl:mb-14 font-comfortaa;
   }
   p {
-    @apply text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_32 font-nunito;
+    @apply text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_28 font-nunito;
   }
   span {
-    @apply text-ui_light_16 md:text-ui_light_20 xl:text-ui_light_28;
+    @apply text-ui_light_16 md:text-ui_light_18 xl:text-ui_light_20;
   }
   input:-internal-autofill-selected {
     @apply !bg-white;
@@ -56,13 +56,13 @@ body {
   }
 
   .nav-button {
-    @apply inline-flex items-center justify-center gap-x-5 transition-colors hocus:text-navy-blue relative z-10 base-transition duration-300;
+    @apply flex items-center justify-center gap-x-5 transition-colors hocus:text-navy-blue relative z-10 base-transition duration-300;
   }
   .nav-button-active {
     @apply nav-button text-blue pointer-events-none;
   }
 }
 
-.header {
+.base-shadow {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 }

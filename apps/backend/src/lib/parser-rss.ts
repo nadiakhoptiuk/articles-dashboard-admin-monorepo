@@ -2,11 +2,8 @@ import Parser from "rss-parser";
 
 import { Article } from "../db/schemas/article.schema";
 
-import {
-  FeedFullType,
-  ArticleItemType,
-  ArticleItemFullType,
-} from "../types/common.types";
+import { FeedFullType, ArticleItemFullType } from "../types/common.types";
+import { AnyAaaaRecord } from "dns";
 
 type FeedType = { title: string; description: string };
 
@@ -26,6 +23,30 @@ const parser: Parser<FeedType, ArticleItemFullType> = new Parser({
   },
 });
 
+const categoryFormat = (array: string[]) => {
+  return array.reduce((acc: any[], category: string) => {
+    if (category.trim() !== "Новини") {
+      return [...acc, category.replace("Новини | ", "")];
+    }
+
+    return acc;
+  }, []);
+};
+
+const feedFormatAndSaveToDB = (feeds: ArticleItemFullType[]) => {
+  feeds.forEach((item) => {
+    const { enclosure, categories, ...props } = item;
+
+    const newCategories = categoryFormat(categories);
+
+    Article.create({
+      imageUrl: item.enclosure.url,
+      categories: newCategories,
+      ...props,
+    });
+  });
+};
+
 export const rssParser = async () => {
   const lastArticle = await Article.findOne().sort({ isoDate: "desc" });
   const lastArticleDate = lastArticle?.isoDate;
@@ -40,16 +61,8 @@ export const rssParser = async () => {
         return feed;
     });
 
-    newFeeds.forEach((item) => {
-      const { enclosure, ...props } = item;
-
-      Article.create({ url: item.enclosure.url, ...props });
-    });
+    feedFormatAndSaveToDB(newFeeds);
   } else {
-    feed.items.forEach((item) => {
-      const { enclosure, ...props } = item;
-
-      Article.create({ url: item.enclosure.url, ...props });
-    });
+    feedFormatAndSaveToDB(feed.items);
   }
 };

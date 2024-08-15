@@ -7,7 +7,7 @@ import { ArticleCreateForm } from '(shared)/components/forms/ArticleCreateForm';
 
 export const CreateModal: FC<ModalCommonProps> = ({ isOpen, setIsOpen }) => {
   return (
-    <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+    <Modal isOpen={isOpen} setIsOpen={setIsOpen} className="max-w-[700px]">
       <p className="mb-10 text-center text-ui_bold_32">Створення статті</p>
 
       <ArticleCreateForm setIsModalOpen={setIsOpen} />

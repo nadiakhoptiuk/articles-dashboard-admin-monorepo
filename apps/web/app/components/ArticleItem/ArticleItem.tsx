@@ -12,6 +12,7 @@ import {
 import { CategoriesList } from '../CategoriesList';
 import { WithMode } from '../ArticlesList/Article.types';
 import { ControlPanel } from '@/app/admin/components/ControlPanel';
+import { ICONS } from '(shared)/types/icons.types';
 
 type Props = {
   article: ArticleDBItemTypeWithDBId;
@@ -27,17 +28,18 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
   return (
     <li
       className={classNames(
-        'flex',
+        'grid',
         {
-          'flex-row items-center gap-x-8': mode === 'admin',
+          'max-xl:grid-cols-2 gap-8 xl:grid-cols-[250px_auto_250px] xl:min-h-[320px]':
+            mode === 'admin',
           'flex-col': mode === 'home',
         },
         className,
       )}
     >
       <div
-        className={classNames('shrink-0 rounded overflow-hidden ', {
-          'w-[250px] h-[300px]': mode === 'admin',
+        className={classNames('shrink-0 rounded overflow-hidden base-shadow', {
+          'w-full h-auto': mode === 'admin',
           'w-full h-[350px] mb-5': mode === 'home',
         })}
       >
@@ -46,13 +48,14 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
           width={642}
           height={500}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-[105%] base-transition duration-1000"
+          className="w-full h-full object-cover object-center group-hover:scale-[105%] base-transition duration-1000"
         />
       </div>
 
       <div
         className={classNames('', {
-          'h-fit w-[500px]': mode === 'admin',
+          'h-fit max-xl:w-full max-xl:col-span-2 max-xl:col-start-1 max-xl:row-start-2':
+            mode === 'admin',
           '': mode === 'home',
         })}
       >
@@ -69,7 +72,7 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
           className={classNames(
             'line-clamp-3 base-transition !duration-700 mb-4 ',
             {
-              '': mode === 'admin',
+              'md:mb-5 xl:mb-7': mode === 'admin',
               'xl:min-h-[95px]': mode === 'home',
             },
           )}
@@ -79,7 +82,7 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
 
         <p
           className={classNames('line-clamp-4', {
-            '': mode === 'admin',
+            'xl:line-clamp-5': mode === 'admin',
             'mb-8': mode === 'home',
           })}
         >
@@ -88,27 +91,46 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
       </div>
 
       <div
-        className={classNames('', {
-          '': mode === 'admin',
+        className={classNames('grid mr-auto', {
+          'max-xl:col-start-2 max-xl:row-start-1 max-xl:gap-y-10 gris-rows-2 grid-cols-1':
+            mode === 'admin',
           'mt-auto': mode === 'home',
         })}
       >
-        {mode === 'admin' && <p>Категорії:</p>}
-        <CategoriesList data={categories} className="mb-4" />
-
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classNames(
-            'w-fit hocus:text-navy-blue base-transition flex text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_28 ',
-          )}
+        <div
+          className={classNames('', {
+            'max-xl:row-start-2': mode === 'admin',
+            'mt-auto': mode === 'home',
+          })}
         >
-          {mode === 'home' ? 'Читати більше' : 'Посилання на статтю'}
-        </a>
-      </div>
+          {mode === 'admin' && (
+            <p className="mb-4 text-ui_reg_20">Категорії:</p>
+          )}
+          {categories.length > 0 ? (
+            <CategoriesList data={categories} className="mb-4" />
+          ) : (
+            <span>Відсутні</span>
+          )}
 
-      {mode === 'admin' && <ControlPanel article={article} />}
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classNames(
+              'w-fit hocus:text-navy-blue base-transition flex items-center text-ui_reg_18 md:text-ui_reg_20 xl:text-ui_reg_28 gap-x-2',
+            )}
+          >
+            <span className="text-ui_reg_18 w-max block">
+              {mode === 'home' ? 'Читати більше' : 'Посилання на статтю'}
+            </span>
+            <ICONS.READ_MORE size={18} />
+          </a>
+        </div>
+
+        {mode === 'admin' && (
+          <ControlPanel className="row-start-1" article={article} />
+        )}
+      </div>
     </li>
   );
 };

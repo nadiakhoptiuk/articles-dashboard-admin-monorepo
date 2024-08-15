@@ -2,9 +2,9 @@ import express from "express";
 
 import {
   createArticle,
-  getAllArticles,
   updateArticle,
   deleteArticle,
+  getAllArticlesWithParams,
 } from "../controllers/articles.controllers";
 import { asyncErrorsHandler } from "../middlewares/asyncErrorsHandler";
 import { validation } from "../middlewares/validation";
@@ -16,7 +16,8 @@ import { authorize } from "../middlewares/authorize";
 
 export const articlesRouter = express.Router();
 
-articlesRouter.get("/", asyncErrorsHandler(getAllArticles));
+// articlesRouter.get("/", asyncErrorsHandler(getAllArticles));
+articlesRouter.get("/", asyncErrorsHandler(getAllArticlesWithParams));
 
 articlesRouter.post(
   "/",

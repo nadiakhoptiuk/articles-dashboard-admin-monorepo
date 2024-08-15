@@ -7,10 +7,11 @@ import classNames from 'classnames';
 import { Input } from '(shared)/components/ui-kit/Input';
 import { Button } from '(shared)/components/ui-kit/Button';
 import { DatePicker } from '(shared)/components/ui-kit/DatePicker';
-import { MultiselectCheckbox } from '(shared)/components/ui-kit/MultiselectCheckbox';
+import { Multiselect } from '(shared)/components/ui-kit/Multiselect';
 
 import { updateArticle } from '@/api/serverActions/updateArticle';
 import { notify } from '(shared)/utils/notification';
+import { formatSelectedCategories } from '(shared)/utils/categoriesFormat';
 
 import {
   ArticleDBItemTypeWithDBId,
@@ -36,9 +37,9 @@ export const ArticleUpdateForm: FC<Props> = ({
 
   const {
     register,
-    reset,
     getValues,
     trigger,
+    handleSubmit,
     formState: { errors },
   } = useForm<ArticleFormType>({
     defaultValues: {
@@ -57,11 +58,11 @@ export const ArticleUpdateForm: FC<Props> = ({
       ...formValues,
       pubDate: selectedDate,
       isoDate: selectedDate,
-      categories: selectedOptions.map(({ value }) => value),
+      categories: formatSelectedCategories(selectedOptions),
     };
 
-    startTransition(async () => {
-      await updateArticle(articleFormData, _id)
+    startTransition(() => {
+      updateArticle(articleFormData, _id)
         .then(status => {
           if (status === 200) {
             notify('Статтю успішно оновлено!');
@@ -76,16 +77,16 @@ export const ArticleUpdateForm: FC<Props> = ({
 
   return (
     <form
-      className="w-[400px] mx-auto mb-16"
+      className="w-full max-w-[500px] mx-auto !mt-0"
       autoComplete="off"
-      action={handleArticleUpdate}
+      onSubmit={handleSubmit(handleArticleUpdate)}
     >
       <DatePicker
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
 
-      <MultiselectCheckbox
+      <Multiselect
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
       />
@@ -97,17 +98,17 @@ export const ArticleUpdateForm: FC<Props> = ({
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          //   value: ,
-          //   message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: new RegExp('^[\\p{L}\'"«»()’.,;:?–!\\-w\\s\\n\\d]+$', 'u'),
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
             value: 6,
             message: 'Мінімальна кількість символів - 6',
           },
           maxLength: {
-            value: 63,
-            message: 'Максимальна кількість символів - 63',
+            value: 200,
+            message: 'Максимальна кількість символів - 200',
           },
           onChange: () => {
             trigger('title');
@@ -126,17 +127,17 @@ export const ArticleUpdateForm: FC<Props> = ({
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          // value: new RegExp(passwordRegExp),
-          // message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: new RegExp('^[\\p{L}\'"«»()’.,;:?–!\\-w\\s\\n\\d]+$', 'u'),
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
             value: 6,
             message: 'Мінімальна кількість символів - 6',
           },
           maxLength: {
-            value: 32,
-            message: 'Максимальна кількість символів - 32',
+            value: 200,
+            message: 'Максимальна кількість символів - 200',
           },
           onChange: () => {
             trigger('content');
@@ -156,13 +157,13 @@ export const ArticleUpdateForm: FC<Props> = ({
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          //   value: ,
-          //   message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: /^https:\/\/[\w\d:/.=?-]{10,}$/,
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
-            value: 6,
-            message: 'Мінімальна кількість символів - 6',
+            value: 10,
+            message: 'Мінімальна кількість символів - 10',
           },
           onChange: () => {
             trigger('link');

@@ -79,3 +79,9 @@ export interface IUser extends Document {
 export interface AuthorizedRequest extends Request {
   user?: IUser;
 }
+
+export interface QueryParams {
+  category?: string | string[];
+  page?: string; // або number, в залежності від ваших потреб
+  sort?: string; // або number
+}

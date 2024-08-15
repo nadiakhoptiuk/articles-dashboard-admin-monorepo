@@ -6,19 +6,31 @@ import { EditModal } from '../EditModal';
 import { DeleteModal } from '../DeleteModal';
 
 import { ICONS } from '(shared)/types/icons.types';
-import { ArticleDBItemTypeWithDBId } from '(shared)/types/common.types';
+import {
+  ArticleDBItemTypeWithDBId,
+  WithClassName,
+} from '(shared)/types/common.types';
+import classNames from 'classnames';
 
 type Props = {
   article: ArticleDBItemTypeWithDBId;
 };
 
-export const ControlPanel: FC<Props> = ({ article }) => {
+export const ControlPanel: FC<Props & WithClassName> = ({
+  article,
+  className = '',
+}) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   return (
     <>
-      <ul className="grid gap-y-4">
+      <ul
+        className={classNames(
+          'grid gap-y-4 grid-cols-2 gap-x-4 w-fit',
+          className,
+        )}
+      >
         <li>
           <button
             type="button"

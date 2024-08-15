@@ -1,17 +1,30 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  getAllArticlesUtility,
-  createArticleUtility,
   updateArticleUtility,
+  createArticleUtility,
   deleteArticleUtility,
+  getAllArticlesUtility,
 } from "../services/articles/articles.services";
+import { QueryParams } from "../types/common.types";
 
-export const getAllArticles = async (
-  req: Request,
+export const getAllArticlesWithParams = async (
+  req: Request<{}, {}, {}, QueryParams>,
   res: Response,
   next: NextFunction
 ) => {
-  const articles = await getAllArticlesUtility();
+  const categoriesParam = req.query.category;
+  const pageParam = req.query.page;
+  const sortParam = req.query.sort;
+
+  const categories: string[] | undefined = Array.isArray(categoriesParam)
+    ? categoriesParam
+    : categoriesParam
+      ? [categoriesParam]
+      : undefined;
+  const page = Number(pageParam) || 1;
+  const sort = sortParam === "1" ? 1 : sortParam === "-1" ? -1 : -1;
+
+  const articles = await getAllArticlesUtility(categories, sort, page);
 
   res.status(200).send({ data: articles });
 };

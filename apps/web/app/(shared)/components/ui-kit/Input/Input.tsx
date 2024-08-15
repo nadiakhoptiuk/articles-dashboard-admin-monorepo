@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import classNames from 'classnames';
-import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+
+import { ICONS } from '(shared)/types/icons.types';
 
 interface Props {
   label: string;
@@ -42,7 +43,7 @@ export const Input = ({
 
       <input
         className={classNames(
-          'w-full py-3 px-4 rounded-sm text-ui_light_16 text-black !bg-white  font-nunito placeholder:italic',
+          'w-full py-3 px-4 rounded-sm text-ui_light_16 text-black !bg-white  font-nunito placeholder:italic h-[48px]',
           classNameInput,
           {
             'text-red': error,
@@ -64,9 +65,9 @@ export const Input = ({
           }
         >
           {inputType === 'password' ? (
-            <FaEyeSlash color="#0096c7" size="24px" />
+            <ICONS.CLOSED_EYE color="#0096c7" size="24px" />
           ) : (
-            <FaEye color="#0096c7" size="22px" />
+            <ICONS.OPENED_EYE color="#0096c7" size="22px" />
           )}
         </button>
       )}

@@ -9,7 +9,7 @@ export default async function Page() {
 
       <section className="section">
         <Container className="relative">
-          <h1 className="text-center mb-10">Усі статті</h1>
+          <h1 className="text-center mb-10 md:mb-15 xl:mb-20">Усі статті</h1>
 
           <ArticlesList mode="admin" />
         </Container>

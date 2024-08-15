@@ -7,8 +7,9 @@ import classNames from 'classnames';
 import { Input } from '(shared)/components/ui-kit/Input';
 import { Button } from '(shared)/components/ui-kit/Button';
 import { DatePicker } from '(shared)/components/ui-kit/DatePicker';
-import { MultiselectCheckbox } from '(shared)/components/ui-kit/MultiselectCheckbox';
+import { Multiselect } from '(shared)/components/ui-kit/Multiselect';
 
+import { formatSelectedCategories } from '(shared)/utils/categoriesFormat';
 import { createArticle } from '@/api/serverActions/createArticle';
 import { notify } from '(shared)/utils/notification';
 
@@ -25,11 +26,12 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
     reset,
     getValues,
     trigger,
+    handleSubmit,
     formState: { errors, isDirty },
   } = useForm<ArticleFormType>({
     defaultValues: {
       imageUrl:
-        'https://www.radiosvoboda.org/Content/responsive/img/image-placeholder.svg',
+        'https://res.cloudinary.com/dwl283wrt/image/upload/v1723717088/%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D1%96%20%D0%B7%D0%B0%D0%B2%D0%B4%D0%B0%D0%BD%D0%BD%D1%8F/image-placeholder_q0dycu.svg',
     },
   });
   const [isPending, startTransition] = useTransition();
@@ -42,11 +44,11 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
       ...formValues,
       pubDate: selectedDate,
       isoDate: selectedDate,
-      categories: selectedOptions.map(({ value }) => value),
+      categories: formatSelectedCategories(selectedOptions),
     };
 
-    startTransition(async () => {
-      await createArticle(articleFormData)
+    startTransition(() => {
+      createArticle(articleFormData)
         .then(status => {
           if (status === 201) {
             notify('Статтю створено успішно!');
@@ -62,16 +64,16 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
 
   return (
     <form
-      className="w-[400px] mx-auto mb-16"
+      className="w-full max-w-[500px] mx-auto mb-16"
       autoComplete="off"
-      action={handleArticleCreate}
+      onSubmit={handleSubmit(handleArticleCreate)}
     >
       <DatePicker
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
 
-      <MultiselectCheckbox
+      <Multiselect
         selectedOptions={selectedOptions}
         setSelectedOptions={setSelectedOptions}
       />
@@ -83,17 +85,17 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          //   value: ,
-          //   message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: new RegExp('^[\\p{L}\'"«»()’.,;:?–!\\-w\\s\\n\\d]+$', 'u'),
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
             value: 6,
             message: 'Мінімальна кількість символів - 6',
           },
           maxLength: {
-            value: 63,
-            message: 'Максимальна кількість символів - 63',
+            value: 200,
+            message: 'Максимальна кількість символів - 200',
           },
           onChange: () => {
             trigger('title');
@@ -112,17 +114,17 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          // value: new RegExp(passwordRegExp),
-          // message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: new RegExp('^[\\p{L}\'"«»()’.,;:?–!\\-w\\s\\n\\d]+$', 'u'),
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
             value: 6,
             message: 'Мінімальна кількість символів - 6',
           },
           maxLength: {
-            value: 32,
-            message: 'Максимальна кількість символів - 32',
+            value: 200,
+            message: 'Максимальна кількість символів - 200',
           },
           onChange: () => {
             trigger('content');
@@ -142,13 +144,13 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
             value: true,
             message: 'Це поле обов"язкове',
           },
-          // pattern: {
-          //   value: ,
-          //   message: 'Не відповідає шаблону',
-          // },
+          pattern: {
+            value: /^https:\/\/[\w\d:/.=?-]{10,}$/,
+            message: 'Не відповідає шаблону',
+          },
           minLength: {
-            value: 6,
-            message: 'Мінімальна кількість символів - 6',
+            value: 10,
+            message: 'Мінімальна кількість символів - 10',
           },
           onChange: () => {
             trigger('link');
@@ -165,9 +167,10 @@ export const ArticleCreateForm: FC<Props> = ({ setIsModalOpen }) => {
         type="submit"
         isDisabled={
           getValues().title === '' ||
+          getValues().link === '' ||
           getValues().content === '' ||
           !isDirty ||
-          Boolean(errors.content || errors.title) ||
+          Boolean(errors.content || errors.title || errors.link) ||
           isPending
         }
         className="mx-auto submit-button"

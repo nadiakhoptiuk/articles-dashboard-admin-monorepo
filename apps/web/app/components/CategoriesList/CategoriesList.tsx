@@ -12,7 +12,7 @@ export const CategoriesList: FC<Props & WithClassName> = async ({
   className = '',
 }) => {
   return (
-    <ul className={classNames('flex flex-wrap gap-2', className)}>
+    <ul className={classNames('flex flex-wrap gap-x-3 gap-y-1', className)}>
       {data.map((category, index) => {
         const newCategory = category.replace('Новини | ', '');
 

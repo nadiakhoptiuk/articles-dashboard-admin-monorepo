@@ -46,15 +46,12 @@ body {
   .btn-outline {
     @apply base-button !bg-transparent hocus:!bg-white border-[1px] !border-blue text-blue;
   }
-
   .base-input {
-    @apply relative mb-5 flex flex-col max-w-[400px] items-center justify-center gap-x-8 transition-all font-nunito text-ui_light_16;
+    @apply relative flex flex-col w-full min-h-[48px] items-center justify-center gap-x-8 transition-all font-nunito text-ui_light_16;
   }
-
   .submit-button:disabled {
     @apply btn-outline pointer-events-none;
   }
-
   .nav-button {
     @apply flex items-center justify-center gap-x-5 transition-colors hocus:text-navy-blue relative z-10 base-transition duration-300;
   }
@@ -67,14 +64,54 @@ body {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 }
 
+/* DAY PICKER */
 .datePicker .rdp-day_button {
   @apply max-md:!h-9 max-md:!w-9;
 }
-
-.dayPicker .rdp-weekday {
+.datePicker .rdp-day {
+  @apply hover:bg-light  base-transition;
+}
+.datePicker .rdp-weekday {
   @apply max-md:!h-9 max-md:!w-9;
 }
-
-.dayPicker .rdp-chevron {
+.datePicker .rdp-chevron {
   fill: #006494 !important;
+}
+.datePicker .rdp-caption_label {
+  @apply text-ui_reg_16;
+}
+.datePicker .rdp-dropdowns {
+  @apply h-auto;
+}
+.datePicker .rdp-dropdown_root {
+  @apply hover:cursor-pointer;
+}
+
+/* MULTISELECT */
+.react-select__control {
+  @apply !border-transparent;
+}
+.react-select__value-container {
+  @apply !px-4 !pt-1 !pb-1 min-h-[48px] bg-white;
+}
+.react-select__input {
+  @apply !bg-transparent;
+}
+.react-select__placeholder {
+  @apply italic;
+}
+.react-select__multi-value {
+  @apply !h-full;
+}
+.react-select__multi-value__label {
+  @apply !font-nunito !text-ui_light_16 flex items-center;
+}
+.react-select__multi-value__remove {
+  @apply w-[28px] flex items-center justify-center;
+}
+.react-select__menu {
+  @apply !my-0;
+}
+.react-select__indicator {
+  @apply hover:cursor-pointer;
 }

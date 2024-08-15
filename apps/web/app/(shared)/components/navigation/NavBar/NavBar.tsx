@@ -19,7 +19,7 @@ export const NavBar: FC = () => {
 
   return (
     <nav className="flex justify-between w-full mx-auto">
-      <ul className="w-fit grid grid-rows-1 grid-cols-2 gap-x-10 justify-between">
+      <ul className="w-fit grid grid-rows-1 grid-cols-2 max-md:gap-x-5 md:gap-x-10 justify-between">
         <NavLink
           href={ROUTES.HOME}
           label="Головна"

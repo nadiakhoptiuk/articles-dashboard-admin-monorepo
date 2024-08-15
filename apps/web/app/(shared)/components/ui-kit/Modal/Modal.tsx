@@ -5,19 +5,25 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
+import classNames from 'classnames';
 
-import { ModalCommonProps, WithChildren } from '(shared)/types/common.types';
+import {
+  ModalCommonProps,
+  WithChildren,
+  WithClassName,
+} from '(shared)/types/common.types';
+import { ICONS } from '(shared)/types/icons.types';
 
-export const Modal: FC<ModalCommonProps & WithChildren> = ({
+export const Modal: FC<ModalCommonProps & WithChildren & WithClassName> = ({
   isOpen,
   setIsOpen,
   children,
+  className = '',
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        open={isOpen}
         onClose={() => setIsOpen(false)}
         className="relative z-10"
       >
@@ -43,8 +49,20 @@ export const Modal: FC<ModalCommonProps & WithChildren> = ({
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <DialogPanel className="absolute left-1/2 top-1/2 w-[1280px] -translate-x-1/2 -translate-y-1/2 space-y-4 border p-12 rounded-lg base-shadow bg-light">
+            <DialogPanel
+              className={classNames(
+                'absolute left-1/2 top-1/2 w-full max-w-[85%] -translate-x-1/2 -translate-y-1/2 space-y-4 border max-xl:px-5 py-12 xl:px-12 rounded-lg base-shadow bg-light',
+                className,
+              )}
+            >
               {children}
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Закрити модальне вікно"
+                className="absolute top-5 right-5 flex h-[50px] w-[50px] items-center justify-center hocus:text-navy-blue text-black !m-0 base-transition"
+              >
+                <ICONS.CLOSE size={30} />
+              </button>
             </DialogPanel>
           </TransitionChild>
         </div>

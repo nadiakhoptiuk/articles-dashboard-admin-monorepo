@@ -8,15 +8,40 @@ import {
   ArticleItemType,
 } from "../../types/common.types";
 
-export const getAllArticlesUtility = async () => {
-  const allArticles = await Article.find().sort({
-    pubDate: "desc",
-  });
+export const getAllArticlesUtility = async (
+  categories: string[] | undefined,
+  sort: 1 | -1,
+  page: number
+) => {
+  let allArticles;
+
+  const onlyPubDateSort =
+    (!categories || categories?.length < 0) && sort && page;
+
+  const categoriesAndPubDateSort =
+    categories && categories?.length > 0 && sort && page;
+
+  if (categoriesAndPubDateSort) {
+    allArticles = await Article.find({ categories: { $all: categories } })
+      .sort({
+        pubDate: sort,
+      })
+      .limit(10)
+      .skip(10 * (page - 1));
+  }
+
+  if (onlyPubDateSort) {
+    allArticles = await Article.find()
+      .sort({
+        pubDate: sort,
+      })
+      .limit(10)
+      .skip(10 * (page - 1));
+  }
 
   if (!allArticles) {
-    throw new NotFound("There are no one day in the database");
+    throw new NotFound("There are no one article in the database");
   }
-  // return allArticles;
 
   return allArticles.map((article) =>
     serializeArticle(article as ArticleItemDBFullType)

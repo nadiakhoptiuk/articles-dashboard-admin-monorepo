@@ -19,7 +19,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'www.radiosvoboda.org',
+        hostname: 'res.cloudinary.com',
       },
     ],
   },

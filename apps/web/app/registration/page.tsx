@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import { AuthForm } from '(shared)/components/forms/AuthForm';
 import { ChangeFormTypeButton } from '(shared)/components/ui-kit/ChangeFormTypeButton';
 import { Container } from '(shared)/components/ui-kit/Container';
 
 import { AUTH_TYPES } from '(shared)/types/enums';
+
+export const metadata: Metadata = {
+  title: 'Сайт свіжих новин | Реєстрація',
+};
 
 export default async function Page() {
   return (

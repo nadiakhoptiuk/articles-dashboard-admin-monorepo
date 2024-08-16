@@ -11,11 +11,11 @@ export const CreateArticleBlock: FC = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   return (
-    <section className="section pb-0">
-      <Container className="border-b-[1px] border-blue pb-20">
+    <section className="section pb-0 pt-10">
+      <Container className="border-b-[1px] border-blue pb-12">
         <button
           type="button"
-          className="w-fit ml-auto h-24 base-shadow flex gap-x-4 items-center justify-center bg-white rounded base-transition py-4 px-5"
+          className="control-btn !w-max ml-auto gap-x-4 items-center justify-centerpy-4 px-5"
           aria-label="Створити нову статтю"
           onClick={() => setIsCreateModalOpen(true)}
         >

@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
+import classNames from 'classnames';
 
 import { EditModal } from '../EditModal';
 import { DeleteModal } from '../DeleteModal';
@@ -10,7 +11,6 @@ import {
   ArticleDBItemTypeWithDBId,
   WithClassName,
 } from '(shared)/types/common.types';
-import classNames from 'classnames';
 
 type Props = {
   article: ArticleDBItemTypeWithDBId;
@@ -34,7 +34,7 @@ export const ControlPanel: FC<Props & WithClassName> = ({
         <li>
           <button
             type="button"
-            className="w-24 h-24 base-shadow flex items-center justify-center bg-white rounded base-transition hocus: text-navy-blue"
+            className="control-btn"
             aria-label="Редагувати статтю"
             onClick={() => setIsEditModalOpen(true)}
           >
@@ -45,7 +45,7 @@ export const ControlPanel: FC<Props & WithClassName> = ({
         <li>
           <button
             type="button"
-            className="w-24 h-24 base-shadow flex items-center justify-center bg-white rounded base-transition hocus: text-navy-blue"
+            className="control-btn"
             aria-label="Видалити статтю"
             onClick={() => setIsDeleteModalOpen(true)}
           >

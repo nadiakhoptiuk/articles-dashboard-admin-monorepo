@@ -39,6 +39,7 @@ export const Multiselect: FC<Props & WithClassName> = ({
 
       <Select<OptionType, true>
         isMulti
+        instanceId="react-multi-select"
         name="categories"
         options={categories}
         value={selectedOptions}

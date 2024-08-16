@@ -34,6 +34,12 @@ export type WithDBId = {
 export type ArticleDBItemTypeWithId = ArticleDBItemType & WithId;
 export type ArticleDBItemTypeWithDBId = ArticleDBItemType & WithDBId;
 
+export type FetchAllArticlesDataType = {
+  articles: ArticleDBItemTypeWithDBId[];
+  count: number;
+  error?: string;
+};
+
 export type ModalCommonProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -69,3 +75,17 @@ export interface OptionType {
   value: string;
   label: string;
 }
+
+export type SearchParamsPropsType = {
+  searchParams: {
+    sort: string | string[] | undefined;
+    page: string | string[] | undefined;
+    category: string | string[] | undefined;
+  };
+};
+
+export type SearchParamsType = {
+  sort: string | string[] | undefined;
+  page: string | string[] | undefined;
+  category: string | string[] | undefined;
+};

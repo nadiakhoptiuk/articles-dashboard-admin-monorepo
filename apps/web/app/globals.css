@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-nunito bg-light pt-[110px];
+  @apply font-nunito bg-light pt-[78px];
 }
 
 @layer base {
@@ -60,6 +60,10 @@ body {
   }
 }
 
+.control-btn {
+  @apply w-20 h-20 base-shadow flex items-center justify-center bg-white rounded base-transition hocus:text-blue hocus:bg-light text-navy-blue;
+}
+
 .base-shadow {
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
 }
@@ -94,17 +98,20 @@ body {
 .react-select__value-container {
   @apply !px-4 !pt-1 !pb-1 min-h-[48px] bg-white;
 }
+.react-select__single-value {
+  @apply !text-ui_reg_18;
+}
 .react-select__input {
-  @apply !bg-transparent;
+  @apply !bg-transparent !text-ui_reg_18;
 }
 .react-select__placeholder {
-  @apply italic;
+  @apply italic !text-ui_reg_18;
 }
 .react-select__multi-value {
   @apply !h-full;
 }
 .react-select__multi-value__label {
-  @apply !font-nunito !text-ui_light_16 flex items-center;
+  @apply !font-nunito !text-ui_reg_18 flex items-center;
 }
 .react-select__multi-value__remove {
   @apply w-[28px] flex items-center justify-center;

@@ -14,6 +14,7 @@ export const getAllArticlesUtility = async (
   page: number
 ) => {
   let allArticles;
+  let count;
 
   const onlyPubDateSort =
     (!categories || categories?.length < 0) && sort && page;
@@ -28,6 +29,10 @@ export const getAllArticlesUtility = async (
       })
       .limit(10)
       .skip(10 * (page - 1));
+
+    count = await Article.countDocuments({
+      categories: { $all: categories },
+    });
   }
 
   if (onlyPubDateSort) {
@@ -37,15 +42,19 @@ export const getAllArticlesUtility = async (
       })
       .limit(10)
       .skip(10 * (page - 1));
+
+    count = await Article.countDocuments();
   }
 
   if (!allArticles) {
-    throw new NotFound("There are no one article in the database");
+    return { articles: [], count: 0 };
   }
 
-  return allArticles.map((article) =>
+  const serializedArticles = allArticles.map((article) =>
     serializeArticle(article as ArticleItemDBFullType)
   );
+
+  return { articles: serializedArticles, count: count };
 };
 
 export const createArticleUtility = async (article: ArticleItemType) => {

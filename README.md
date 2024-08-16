@@ -1,6 +1,6 @@
 # A website which parsed rss chanel with Ukrainian News
 
-[Скріншот сайту](/apps/web/public/meta/ogp-image.jpg)
+![Скріншот сайту](/apps/web/public/meta/ogp-image.jpg)
 
 This is a monorepo containing both the backend and frontend components of the application.
 

@@ -5,10 +5,6 @@ import { rssParser } from "./lib/parser-rss";
 import { rssScheduleTask } from "./lib/scheduler";
 import { app } from "./app";
 
-// app.get("/", async (_, res) => {
-//   res.status(201).send({ message: "I am alive" });
-// });
-
 const PORT = process.env.PORT || 3001;
 
 connectToDB()

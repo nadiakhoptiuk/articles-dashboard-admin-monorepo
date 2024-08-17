@@ -1,4 +1,4 @@
-import type { AuthOptions, Session } from 'next-auth';
+import type { AuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -23,7 +23,7 @@ export const authConfig: AuthOptions = {
           headers: { 'Content-Type': 'application/json' },
         }).then(res => res.json());
 
-        if (user && user.userData.token) {
+        if (user && user.userData.id) {
           return user as CustomUser;
         }
 

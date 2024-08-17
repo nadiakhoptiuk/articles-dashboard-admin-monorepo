@@ -13,21 +13,24 @@ const categories: OptionType[] = [
 ];
 
 type Props = {
-  selectedOptions: OptionType[] | [];
-  setSelectedOptions: React.Dispatch<SetStateAction<OptionType[] | []>>;
+  selectedOptions: MultiValue<OptionType>;
+  setSelectedOptions: React.Dispatch<SetStateAction<MultiValue<OptionType>>>;
   type?: 'filter' | 'save';
   label?: string;
+  onChange?: (args: MultiValue<OptionType>) => void;
 };
 
 export const Multiselect: FC<Props & WithClassName> = ({
   selectedOptions,
   setSelectedOptions,
+  onChange,
   type = 'save',
   label = 'Категорія',
   className = '',
 }) => {
   const handleChange = (options: MultiValue<OptionType> | null) => {
-    setSelectedOptions((options as OptionType[]) || []);
+    onChange && onChange(options ?? []);
+    setSelectedOptions(options ?? []);
   };
 
   return (

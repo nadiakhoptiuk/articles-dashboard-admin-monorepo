@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { SingleValue } from 'react-select';
+import { MultiValue, SingleValue } from 'react-select';
 import classNames from 'classnames';
 
 import { Multiselect } from '(shared)/components/ui-kit/Multiselect';
@@ -15,9 +15,8 @@ export const ArticlesFilterPanel: FC<WithClassName> = ({ className = '' }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [selectedCategories, setSelectedCategories] = useState<
-    OptionType[] | []
-  >(format());
+  const [selectedCategories, setSelectedCategories] =
+    useState<MultiValue<OptionType>>(format());
   const [selectedOption, setSelectedOption] = useState<SingleValue<OptionType>>(
     {
       value: '-1',
@@ -35,22 +34,27 @@ export const ArticlesFilterPanel: FC<WithClassName> = ({ className = '' }) => {
     });
   }
 
-  useEffect(() => {
+  const handleDateSortingChange = (option: SingleValue<OptionType>) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.delete('category');
 
-    if (selectedCategories && selectedCategories.length > 0) {
-      selectedCategories.forEach(category => {
-        params.append('category', category.value);
-      });
-    }
-
-    if (selectedOption) {
-      params.set('sort', selectedOption.value);
+    if (option) {
+      params.set('sort', option.value);
     }
 
     router.push(pathname + '?' + params.toString());
-  }, [pathname, router, searchParams, selectedCategories, selectedOption]);
+  };
+
+  const handleCategoryChange = (options: MultiValue<OptionType> | []) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('category');
+
+    options.forEach(category => {
+      params.append('category', category.value);
+    });
+
+    params.set('page', '1');
+    router.push(pathname + '?' + params.toString());
+  };
 
   return (
     <div
@@ -62,15 +66,17 @@ export const ArticlesFilterPanel: FC<WithClassName> = ({ className = '' }) => {
       <Multiselect
         selectedOptions={selectedCategories}
         setSelectedOptions={setSelectedCategories}
+        onChange={handleCategoryChange}
         type="filter"
         label="Фільтр за категоріями:"
         className="max-w-[440px]"
       />
 
       <SingleSelect
-        label="Фільтр за датою:"
+        label="Сортування за датою:"
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
+        onChange={handleDateSortingChange}
       />
     </div>
   );

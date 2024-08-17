@@ -1,5 +1,5 @@
 import { FC } from 'react';
-
+import Link from 'next/link';
 import classNames from 'classnames';
 
 import { PaginationPanel } from '(shared)/components/modules/PaginationPanel/PaginationPanel';
@@ -14,15 +14,28 @@ import {
   WithClassName,
 } from '(shared)/types/common.types';
 import { WithMode } from './Article.types';
-import { notify } from '(shared)/utils/notification';
+import { ROUTES } from '(shared)/types/enums';
 
 export const ArticlesList: FC<
   SearchParamsPropsType & WithMode & WithClassName
 > = async ({ searchParams, mode = 'home', className = '' }) => {
   const data: FetchAllArticlesDataType = await getAllArticles(searchParams);
+  const { articles, count, error } = data;
 
-  if (data.error) notify(data.error);
-  const { articles, count } = data;
+  if (error)
+    return (
+      <div>
+        <p className="text-center mb-8">
+          Сталася помилка, повторіть запит пізніше
+        </p>
+        <Link
+          href={ROUTES.HOME}
+          className="mx-auto block w-fit base-button text-ui_reg_18 px-6"
+        >
+          Перезавантажити
+        </Link>
+      </div>
+    );
 
   return (
     <>
@@ -46,6 +59,8 @@ export const ArticlesList: FC<
           <PaginationPanel count={count} />
         </>
       )}
+
+      {!error && count === 0 && <p>Новин за вашим запитом не знайдено</p>}
     </>
   );
 };

@@ -13,6 +13,7 @@ import {
   VscSignOut,
   VscArrowRight,
   VscClose,
+  VscArrowSwap,
 } from 'react-icons/vsc';
 import { CgSpinner } from 'react-icons/cg';
 
@@ -31,5 +32,6 @@ export const ICONS = {
   OPENED_EYE: VscEye,
   READ_MORE: VscArrowRight,
   SEARCH: VscSearch,
+  SORT: VscArrowSwap,
   SPINNER: CgSpinner,
 };

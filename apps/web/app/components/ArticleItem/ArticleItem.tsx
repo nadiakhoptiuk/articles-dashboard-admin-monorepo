@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 import classNames from 'classnames';
 
 import TemplateSrc from '@/public/images/template.png';
@@ -32,7 +33,7 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
         {
           'max-xl:grid-cols-2 gap-8 xl:grid-cols-[250px_auto_250px] xl:min-h-[320px]':
             mode === 'admin',
-          'flex-col': mode === 'home',
+          'xl:grid-rows-[370px_auto_auto]': mode === 'home',
         },
         className,
       )}
@@ -65,7 +66,7 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
             '': mode === 'home',
           })}
         >
-          {format(pubDate, 'dd MMM y, kk:mm')}
+          {format(pubDate, 'dd MMMM y, HH:mm', { locale: uk })}
         </span>
 
         <h2
@@ -73,21 +74,23 @@ export const ArticleItem: FC<Props & WithClassName & WithMode> = ({
             'line-clamp-3 base-transition !duration-700 mb-4 ',
             {
               'md:mb-5 xl:mb-7': mode === 'admin',
-              'xl:min-h-[95px]': mode === 'home',
+              'xl:min-h-[48px]': mode === 'home',
             },
           )}
         >
           {title}
         </h2>
 
-        <p
-          className={classNames('line-clamp-4', {
-            'xl:line-clamp-5': mode === 'admin',
-            'mb-8': mode === 'home',
-          })}
-        >
-          {content}
-        </p>
+        {content && (
+          <p
+            className={classNames('line-clamp-4', {
+              'xl:line-clamp-5': mode === 'admin',
+              'mb-8 xl:min-h-[62px]': mode === 'home',
+            })}
+          >
+            {content}
+          </p>
+        )}
       </div>
 
       <div

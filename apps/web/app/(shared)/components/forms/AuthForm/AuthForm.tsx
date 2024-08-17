@@ -35,7 +35,6 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
   } = useForm<FormInputsType>();
 
   const handleCommonAuth = async (data: FormInputsType) => {
-    console.log('data', data);
     return await signIn('credentials', {
       ...data,
       mode: typeAuth,
@@ -56,7 +55,6 @@ export const AuthForm: FC<FormAuthProps> = ({ typeAuth }) => {
 
   const handleSubmitRegistration = async (data: FormInputsType) => {
     const res = await handleCommonAuth(data);
-    console.log('res handleSubmitRegistration', res);
 
     if (res && !res.error) {
       reset();

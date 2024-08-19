@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { MultiValue, SingleValue } from 'react-select';
 import classNames from 'classnames';
@@ -20,7 +20,7 @@ export const ArticlesFilterPanel: FC<WithClassName> = ({ className = '' }) => {
   const [selectedOption, setSelectedOption] = useState<SingleValue<OptionType>>(
     {
       value: '-1',
-      label: 'За спаданням',
+      label: 'Спочатку нові',
     },
   );
 

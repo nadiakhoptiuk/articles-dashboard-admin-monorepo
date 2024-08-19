@@ -25,7 +25,7 @@ export const PaginationPanel: FC<Prop & WithClassName> = ({
     const params = new URLSearchParams(searchParams.toString());
     const pageFromUrl = params.get('page');
 
-    setPaginationPage(Number(pageFromUrl));
+    setPaginationPage(Number(pageFromUrl) || 1);
   }, [searchParams]);
 
   const handleRouteGenerate = (page: number) => {
